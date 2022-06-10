@@ -1,6 +1,8 @@
 import random
 from re import T
 import os
+import pyinputplus as pyip
+
 
 clear = lambda: os.system('cls')
 
@@ -144,7 +146,7 @@ class Game():
         self.setup()
         self.getplayerNames()
 
-        if self.executeTutorial() == 'y':
+        if self.executeTutorial() == 'yes':
             print("")
             self.tutorial(self.player1, self.player2)
             self.tutorial(self.player2, self.player1)
@@ -178,16 +180,15 @@ class Game():
         clear()
 
     def executeTutorial(self):
-        result = input("\nWould you like to do the tutorial? (y or n): ")
-        result = str(result[0].lower())
+        result = pyip.inputYesNo("\nWould you like to do the tutorial? (y or n): ")
         return result
     
 
     def getplayerNames(self):
         
-        name = input("Please enter the name of player 1: ")
+        name = pyip.inputStr("Please enter the name of player 1: ")
         self.player1.name = name
-        name = input("Please enter the name of player 2: ")
+        name = pyip.inputStr("Please enter the name of player 2: ")
         self.player2.name = name
 
     def tutorial(self,player1,player2):
@@ -266,8 +267,8 @@ class Game():
     def playerShoot(self,player):
 
         print("\n")
-        xInput = int(input("X Coordinate: "))
-        yInput = int(input("Y Coordinate: "))
+        xInput = pyip.inputInt("X Coordinate: ",min = 0, max = self.player1.size-1)
+        yInput = pyip.inputInt("Y Coordinate: ",min = 0, max = self.player1.size-1)
 
         result = player.Bomb(yInput,xInput)
 
